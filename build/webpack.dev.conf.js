@@ -18,6 +18,7 @@ var apiRoutes = express.Router()
 
 apiRoutes.get('/getDiscList', function (req, res) {
   var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
+  res.header('Access-Control-Allow-Origin', '*')
   axios.get(url, {
     headers: {
       referer: 'https://c.y.qq.com/',
@@ -30,6 +31,7 @@ apiRoutes.get('/getDiscList', function (req, res) {
     console.log(e)
   })
 })
+
 app.use('/api', apiRoutes)
 app.listen(8083)
 const devWebpackConfig = merge(baseWebpackConfig, {
@@ -55,7 +57,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
-      poll: config.dev.poll,
+      poll: config.dev.poll
     }
   },
   plugins: [
@@ -70,7 +72,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       inject: true
-    }),
+    })
   ]
 })
 
@@ -88,7 +90,7 @@ module.exports = new Promise((resolve, reject) => {
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
+          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`]
         },
         onErrors: config.dev.notifyOnErrors
         ? utils.createNotifierCallback()
