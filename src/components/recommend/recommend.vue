@@ -6,7 +6,7 @@
           <slider>
             <div v-for="item in recommends" :key="item.linkUrl">
               <a :href="item.linkUrl">
-                <img :src="item.picUrl" @load="loadImg">
+                <img :src="item.picUrl" @load="loadImg" class="needsclick">
               </a>
             </div>
           </slider>
@@ -16,7 +16,8 @@
           <ul>
             <li v-for="item in diskList" class="item">
               <div class="icon">
-                <img v-bind:src="item.imgurl" alt="" width="60" height="60">
+                <img v-lazy="item.imgurl" alt="" width="60" height="60">
+                <!--v-bind:src="item.imgurl" -->
               </div>
               <div class="text">
                 <h2 class="name" v-html="item.creator.name"></h2>
@@ -26,6 +27,9 @@
           </ul>
         </div>
       </div>
+      <div class="loading-container" v-show="!diskList.length">
+        <loading></loading>
+      </div>
     </scroll>
   </div>
 </template>
@@ -34,7 +38,7 @@
   import Scroll from 'base/scroll/scroll'
   import {getRecommend, getDiscList} from 'api/recommend'
   import {ERR_OK} from 'api/config'
-
+  import Loading from 'base/loading/loading'
   export default {
     data() {
       return {
@@ -69,7 +73,8 @@
     },
     components: {
       Slider,
-      Scroll
+      Scroll,
+      Loading
     }
   }
 </script>
